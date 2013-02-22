@@ -1,0 +1,10 @@
+{
+  "name": "streamhub-template",
+  "version": "1.0.0",
+  "main": [
+    "./src/main.js"
+  ],
+  "dependencies": {
+    "streamhub-backbone": "*"
+  }
+}

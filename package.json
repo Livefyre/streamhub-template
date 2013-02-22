@@ -1,0 +1,19 @@
+{
+  "name": "streamhub-template",
+  "description": "StreamHub-Backbone plugin template",
+  "author": {
+    "name": "Gene Hallman"
+  },
+  "version": "1.0.0",
+  "devDependencies": {
+    "bower": "*",
+    "jasmine-node": "*",
+    "jsdoc3": "git://github.com/jsdoc3/jsdoc.git#v3.1.0",
+    "http-server": "*"
+  },
+  "scripts": {
+    "postinstall": "./node_modules/bower/bin/bower install",
+    "test": "open tests/index.html",
+    "start": "./node_modules/http-server/bin/http-server"
+  }
+}
