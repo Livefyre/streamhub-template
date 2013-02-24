@@ -16,7 +16,7 @@
     "test": "open tests/index.html",
     "start": "./node_modules/http-server/bin/http-server"
   },
-  "streamhub" {
+  "streamhub": {
     "sampleImage": "http://icons.iconseeker.com/png/fullsize/themepark-icon/template.png"
   }
 }
