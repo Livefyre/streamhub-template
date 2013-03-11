@@ -10,6 +10,7 @@ var Backbone = require('backbone'),
  * @param {Object.<string, *>} opts No options.
  */
 var TemplateView = Backbone.View.extend(
+/** @lends TemplateView.prototype */
 {
     initialize: function (opts) {
     	opts = opts || {};
@@ -26,15 +27,15 @@ var TemplateView = Backbone.View.extend(
 	    }
     },
     /**
-     * @property {string} className The css class name that this object will apply to
-     * it's holding element
+     * The css class name that this object will apply to it's holding element
+     * @type {string}
      * @default hub-TemplateView
      */    
     className: "hub-TemplateView",
     /**
-	 * Renders a TemplateView. This is where you should create any
-	 * DOM elements needed and then show or animate the parent element.
-	 */
+     * Renders a TemplateView. This is where you should create any
+     * DOM elements needed and then show or animate the parent element.
+     */
     render: function () {
         this.$el.fadeIn();
     }
