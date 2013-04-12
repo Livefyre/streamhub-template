@@ -1,24 +1,17 @@
 define(function(require) {
-	var Hub = require('streamhub-backbone');
+	var Hub = require('streamhub-sdk');
 	var View = require('streamhub-template');
 
 	return function(sdk, opts) {
-		var col = window.col = new Hub.Collection().setRemote({
-			sdk: sdk,
-			siteId: opts.siteId,
-			articleId: opts.articleId3
-		});
-
+		tOpts = $.extend({articleId: opts.articleId1}, opts);
 		var view = new View({
-			collection: col,
-			el: document.getElementById(opts.elementId),
+			streams: Hub.Streams.forCollection(tOpts).start(),
+			el: opts.element,
 			onClick: function(event) {
 				alert($(event.currentTarget).text());
 			}
 		});
-
-	view.render();
         
-	return view;
+	    return view;
     };
 });

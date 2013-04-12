@@ -1,60 +1,44 @@
 /** @module TemplateView */
 define(function(require) {
-var Backbone = require('backbone'),
-    ContentView = require('streamhub-backbone/views/ContentView');
-
-/**
- * TemplateView is an empty view for use as a plugin template.
- * @alias module:TemplateView
- * @constructor
- * @param {Object.<string, *>} opts No options.
- */
-var TemplateView = Backbone.View.extend(
-/** @lends TemplateView.prototype */
-{
-    initialize: function (opts) {
+	var View = require('streamhub-sdk/view');
+	
+	/**
+	 * TemplateView is an empty view for use as a plugin template.
+	 * @alias module:TemplateView
+	 * @constructor
+	 * @param {Object.<string, *>} opts No options.
+	 */
+	var TemplateView = function (opts) {
     	opts = opts || {};
-        this.$el.addClass(this.className);
+    	
+    	View.call(this, opts);
+    	this.$el = $(this.el);
+        this.$el.addClass(opts.className || "hub-TemplateView");
         this.$el.hide();
+        this.$el.fadeIn();
         
         var self = this;
-        if (this.collection) {
-            this.collection.each(function(item) {
-	            self._insertItem(item, self.collection);
-	        });
+        self.on('add', function(content, stream) {
+	        self.add(content, stream);
+	    });
+    };
+    $.extend(TemplateView.prototype, View.prototype);
+	
+	/**
+	 * Inserts a new piece of content into the dom. Used as a callback handler
+	 * for this.add events.
+	 * @param {Object} content A piece of content that was streamed to this view from Streamhub.
+	 * @param {Stream} stream A reference to the stream that this item was added from.
+	 * @return {ContentView} The contentView that was inserted.
+	 * @protected
+	 */
+	TemplateView.prototype.add = function (content, stream) {
+	    var contentView = this.createContentView(content);
+	    contentView.render();
+	    this.$el.append(contentView.el);
 	    
-	        this.collection.on('add', this._insertItem, this);
-	    }
-    },
-    /**
-     * The css class name that this object will apply to it's holding element
-     * @type {string}
-     * @default hub-TemplateView
-     */    
-    className: "hub-TemplateView",
-    /**
-     * Renders a TemplateView. This is where you should create any
-     * DOM elements needed and then show or animate the parent element.
-     */
-    render: function () {
-        this.$el.fadeIn();
-    }
-});
-
-/**
- * Inserts a new piece of content into the dom. Used as a callback handler
- * for collection.add events.
- * @param {Object} item A piece of content that was streamed to this view from Streamhub.
- * @param {Backbone.Collection} col A reference to the collection that this item was added to.
- * @return {Object} The $html element that was inserted.
- * @protected
- */
-TemplateView.prototype._insertItem = function (item, col) {
-    var itemEl = $(document.createElement('div'));
-    itemEl.html(item.get('bodyHtml'));
-    
-    return itemEl;
-};
-
-return TemplateView;
+	    return contentView;
+	};
+	
+	return TemplateView;
 });

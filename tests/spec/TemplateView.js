@@ -1,7 +1,7 @@
 define([
     'jasmine-jquery',
     'streamhub-template',
-    'streamhub-backbone'],
+    'streamhub-sdk'],
 function (jasmine, TemplateView, Hub) {
 describe('A TemplateView', function () {
     it ("can have tests run", function () {
@@ -36,7 +36,7 @@ describe('A TemplateView', function () {
 		        '<div id="hub-TemplateView"></div>'
 		    );
 	        view = new TemplateView({
-	            el: $('#hub-TemplateView'),
+	            el: $('#hub-TemplateView').get(0),
 	        });
 	        window.view =view;
 		});
